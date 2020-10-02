@@ -14,18 +14,23 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @Slf4j
 public class ExController {
-	private final ExService service;
+    private final ExService service;
 
-	@GetMapping("/signUp")
-	public String signUpForm(){
-		return "signup";
-	}
+    @GetMapping("/signUp")
+    public String signUpForm() {
+        return "signup";
+    }
 
-	@PostMapping("/signUp")
-	public String signUp(User user){
-		user.setRole("USER");
-		service.joinUser(user);
-		log.info(user.getEmail());
-		return "redirect:/login";
-	}
+    @PostMapping("/signUp")
+    public String signUp(User user) {
+        user.setRole("USER");
+        service.joinUser(user);
+        log.info(user.getEmail());
+        return "redirect:/login";
+    }
+
+    @GetMapping("/")
+    public String userAccess() {
+    	return "user_access";
+    }
 }
