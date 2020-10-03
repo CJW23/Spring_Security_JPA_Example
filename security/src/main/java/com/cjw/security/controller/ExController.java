@@ -1,6 +1,9 @@
 package com.cjw.security.controller;
 
+import com.cjw.security.auth.MyUserDetail;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,7 +33,10 @@ public class ExController {
     }
 
     @GetMapping("/")
-    public String userAccess() {
+    public String userAccess(Model model, Authentication authentication) {
+        MyUserDetail userDetail = (MyUserDetail)authentication.getPrincipal();
+        log.info(userDetail.getUsername());
+        model.addAttribute("info", userDetail.getUsername());
     	return "user_access";
     }
 }
